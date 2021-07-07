@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>이벤트 객체 preventDefault 메서드</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("a[href*='naver']").not("#link").click(function(e) {
+				e.preventDefault();
+			});
+			$("a[href*='daum']").click(function() {
+				return false;
+			});
+			
+			$("#link").click(function(e) {
+				var age = prompt("나이를 입력하세요", "정수만 입력 가능합니다");
+				if(age < 15){
+					alert("15세 미만은 들어갈 수 없습니다.");
+					e.preventDefault();
+				}
+			});
+		})
+	</script>
+</head>
+<body>
+	<h3>이벤트 객체 preventDefault 메서드</h3>
+	<p>사용법 : e.preventDefault();</p>
+	<hr>
+	<a href="http://www.naver.com" target="_blank">네이버로 이동</a>
+	<a href="http://www.daum.net" target="_blank">다음으로 이동</a>
+	<hr>
+	<h3>예제</h3>
+	<p><a id="link" href="http://www.naver.com">네이버로 이동</a></p>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Jquery attr </title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+	
+		function setTitle() {
+			
+			$("img").each(function(i, v) {
+				
+				var src = $(v).attr("src");
+				
+				var idx = src.lastIndexOf("/");
+				var title = src.substr(idx + 1); 
+				
+				idx = title.lastIndexOf(".");
+				title = title.substring(0, idx);
+				
+				// split으로 쓰기 (일반적으로 많이 쓴다)
+// 				var tmpArr = src.split("/"); // 배열로 나온다 ["../", "../", "images/", "이름.jpg"]
+// 				var fileFullName = arr[tmpArr.length - 1]; // 마지막 인덱스 
+// 				tmpArr = fileFullName.split("."); // coffee.1.jpg => ["coffee", "1", "jpg"]
+// 				var fileName = "";
+// 				for(var j=0; j<tmpArr.length-1; j++){
+// 					fileName += tmpArr[j]; + ".";
+// 				}
+// 				fileName.substr(0, fileName.length-1);
+				
+				
+				
+				$(v).attr("title", title);
+			});
+
+		}	
+	
+	</script>
+	<style type="text/css">
+		img {
+			height: 100px;
+		}
+	</style>
+</head>
+<body>
+	<img alt="해변" src="../../images/beach.jpg">
+	<img alt="곰" src="../../images/bear.jpg">
+	<img alt="구름" src="../../images/cloud.jpg">
+	<img alt="커피" src="../../images/coffee.jpg">
+	<img alt="꽃" src="../../images/flower.jpg">
+	<br>
+	<button type="button" onclick="setTitle();">클릭</button>
+</body>
+</html>

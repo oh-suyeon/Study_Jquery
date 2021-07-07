@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>JQ AJAX 호출</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+</head>
+<body>
+	<form id="fm"> <!-- data를 form에 묶어서 한번에 가져가기 -->
+		<input type="text" name="userId">
+		<input type="text" name="userName">
+		<input type="text" name="userPassword">
+		<input type="text" id="temp1">
+		<input type="text">
+		<input type="text">
+	</form>
+	<button type="button" onclick="save();">저장</button>
+</body>
+	<script type="text/javascript">
+	
+		function save() {
+			
+			if(!confirm("저장하시겠습니까?")){
+				return;
+			}
+			
+			// 데이터 저장 = 서버 호출
+// 			var obj = {"id", "text01"};
+			var obj = {id : "text01", name : "아이유", password : "text01!@"};
+			
+			$.ajax({
+				url: "test.jsp"; // 호출할 주소
+				,type: "post" //또는 "get : 데이터를 전송하는 방식"
+				,data: obj // 전송할 데이터 (직접 써도 괜찮고 변수로 써도 괜찮음)
+				,data: $("#fm").serialize() // 전송할 데이터 (직접 써도 괜찮고 변수로 써도 괜찮은데, 길게 써야 하면 form을 묶어서 이렇게 쓰는 게 좋다.)
+				// form에서 name 속성이 있는 것들만 obj처럼 만들어준다. 
+				,dataType: "json" // 결과 데이터의 형식
+				,success: function(data) {	// 요청 성공시 수행되는 메서드 
+					console.log(data)
+					$("#result").text(data); // 화면에 결과 세팅
+				}
+				,error: function(xhr) { // 요청 실패시 수행되는 메서드 
+					console.log(xhr);
+					alert("오류입니다.");
+				}
+			});
+			
+		}
+	
+	</script>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>GET submit 데이터 처리(html)</title>
+		<script src="../../js/lib/jquery-3.6.0.js"></script>
+		<script src="../../js/common/myUtils.js"></script>
+		<script type="text/javascript">
+			console.log(window.location.href);
+			var str = window.location.href;
+			
+			var userName = getValueByUrl(str, "userName");
+			var userAge = getValueByUrl(str, "userAge");
+			
+			alert("올해 " + userAge + "살인 " + userName + "님 반갑습니다");
+			
+			$(document).ready(function() {
+				$("#userName").text(userName);
+			});
+		</script>
+	</head>
+	<body>
+		<p>로그인 : <span id="userName"></span>님</p>
+		<h1>Welcome to the Web Programming!</h1>
+		<img src = "../../images/bear.jpg">
+		<p>
+			안녕하세요. 열심히 잘 해봅시다~ 
+			<em>환영합니다!</em>
+		</p>
+		<h2>내용</h2>
+		<p>HTML5, CSS3, JavaScript, jQuery, SQL, JSP, ...</p>
+		<h2>기간</h2>
+		<p>2021.03.10 ~ 2021.10.21</p>
+		<h2>장소</h2>
+		<p>대덕인재개발원</p>
+	</body>
+</html>

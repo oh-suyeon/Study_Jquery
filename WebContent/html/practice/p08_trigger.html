@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>trigger 시도 군구 예제</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		
+		var sidoList = [
+			{name : "서울특별시"
+			 ,code : "02"}
+			,{name : "대전특별시"
+			 ,code : "042"}
+			,{name : "부산특별시"
+			 ,code : "051"}
+		]
+	
+		var allGugunList = [
+			{code : "02"
+			 ,gugun : ["서울1", "서울2", "서울3"]}
+			,{code : "042"
+			 ,gugun : ["대전1", "대전2", "대전3"]}	
+			,{code : "051"
+			 ,gugun : ["부산1", "부산2", "부산3"]}	
+		]
+		
+		$(document).ready(function() {
+			
+			$("#sido").change(function() {
+				var val = $(this).val();
+				
+				var gugunList = [];
+				
+				// 선택한 시도의 구군 리스트 받아오기
+				$(allGugunList).each(function(i, v) {
+					var obj = v;
+					if(v.code == val){
+						gugunList = v.gugun;
+						return false; // each문에서는 break 안됨
+					}
+				});
+				
+				// 구군 옵션 초기화
+				$("#gugun").empty(); // append하지 말고, html로 넣으면 empty할 필요 없다.
+									// string으로 바꾸고, 나중에 append하기
+									//https://dololak.tistory.com/417
+				
+				// 구군 옵션 생성
+				$(gugunList).each(function(i, v) {
+					$("<option>").text(v).appendTo("#gugun");
+				});
+			});
+			
+			initSidoSelect();
+			
+		});
+		
+		function initSidoSelect() {
+			$(sidoList).each(function(i, v) {
+				var obj = v;
+				$("<option>").text(v.name)
+							 .val(v.code)
+							 .appendTo("#sido")
+			});
+		}
+	
+	</script>
+</head>
+<body>
+	<div>
+		시/도:
+		<select id="sido">
+			<option>==선택==</option>
+		</select>
+		<br>
+		구/군:
+		<select id="gugun">
+		</select>
+	</div>
+</body>
+</html>

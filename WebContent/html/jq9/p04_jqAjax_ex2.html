@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>JQ AJAX 호출</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+</head>
+<body>
+	
+	<form id="fm" action="intro.html" method="get">
+		이름 : <input type="text" name="userName">	
+		<br>
+		나이 : <input type="text" name="userAge">
+		<br>
+		<br>
+		<button type="button" onclick="fnSubmit()">post버튼</button>
+		<button type="submit">get버튼</button> <!-- 엔터 치면 그냥 보내버린다. 웹접근성 안 좋아서submit안씀 -->
+		<hr>
+		<button type="button" id="sendAjax" onclick="fnAjax();">Ajax전송</button>
+	</form>
+	<span id="resultAxaj"></span>
+	
+</body>
+<script type="text/javascript">
+
+	// form submit 방식 호출
+	function fnSubmit() {
+		var fm = document.getElementById("fm");
+		// form의 method 속성의 기본 값은 get. 
+		fm.method = "post"; // 전송방식 - ajax의 type
+		fm.action = "intro.jsp"; // 호출할 주소 - ajax의 url
+		fm.submit();
+	}
+	
+	// jQ ajax 방식 호출
+	// submit은 그냥 넘어가버리지만 ajax는 회원가입할 때 성공/실패 여부를 알 수 있다. (db저장 최대 길이를 넘어 실패 등) 
+	function fnAjax() {
+		$.ajax({
+			url: "intro.html"
+			,type: "post" // 생략 시 기본은get.
+			,data: $("#fm").serialize() // 어떻게 받지
+			,dataType: "html" 
+			,success : function(data) {
+				$("#resultAxaj").html(data);
+			}
+			,error : function(xhr) { // 에러 처리 꼭하기
+				console.log(xhr);
+				console.log("status : " + xhr.status);
+				console.log("code : " + xhr.statusText);
+				console.log(xhr.responseText);
+				alert("오류입니다.");
+			}
+		});
+	}
+
+</script>
+</html>

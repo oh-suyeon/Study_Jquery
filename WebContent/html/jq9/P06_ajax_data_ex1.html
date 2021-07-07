@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>ajax dataType 예제</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		function proc(type) {
+			var strUrl = "";
+			var strDataType = "";
+			
+			if(type == "TEXT"){
+				strUrl = "../jq9_data/data_text.txt";
+				strDataType = "text";
+				
+			}else if(type == "HTML"){
+				strUrl = "intro.html";
+				strDataType = "html";
+				
+			}else if(type == "JSON"){
+				strUrl = "../jq9_data/data_json.txt";
+				strDataType = "json";
+				
+			}else if(type == "XML"){
+				strUrl = "../jq9_data/data_xml.xml";
+				strDataType = "xml";
+			}
+			
+			$.ajax({
+				url: strUrl 
+				,type: "post"
+// 				,data: ""
+				,dataType: strDataType
+				,success: function(data) {
+					console.log(data);
+					alert("성공");
+					
+					makeResult(type, data);
+				}
+				,error: function(xhr) {
+					console.log(xhr);
+					alert("오류");
+				}
+			});
+		}
+		
+		function makeResult(type, data) {
+			if(type == "TEXT" || type == "HTML"){
+				
+				$("#result").html(data);
+				
+			}else if(type == "JSON"){
+				
+				var str = "";
+				
+				var hobbyStr = "";
+				$(data.hobby).each(function(idx, item){
+					
+					hobbyStr += item + ", ";
+				});
+				hobbyStr = hobbyStr.substr(0, hobbyStr.length-2);
+			
+				var nobleStr = "";
+				if(data.noble){
+					nobleStr = "양반";
+				}else{
+					nobleStr = "천민";
+				}
+				
+				str = "이름 : " + data.name + "<br>"
+					+ "연락처 : " + data.phone + "<br>"
+					+ "나이 : " + data.age + "<br>"
+					+ "주소: " + data.addr.sido + " "
+							  + data.addr.gugun + " "
+							  + data.addr.dong + " "
+							  + data.addr.bunji + " ["
+							  + data.addr.postCode + "] <br>"
+					+ "취미 : " + hobbyStr + "<br>"							
+					+ "신분 : " + nobleStr + "<br>";							
+					
+				$("#result").append(data.name + "님 반갑습니다. <br>" + str);
+			
+			}else if(type == "XML"){
+				// data == document
+				
+				$("#tb").css("display", "inline-block");
+				
+				var lunchList = data.getElementsByTagName("LUNCH");
+			
+				var htmlStr = "<tr>"
+							+ "<th>" + "메뉴명" + "</th>"
+							+ "<th>" + "가격" + "</th>"
+							+ "</tr>";
+				
+				$(lunchList).each(function(idx, item) {
+					
+					var name = item.children[0].innerHTML;
+					var price = item.children[1].innerHTML;
+					
+					htmlStr += "<tr>"
+								+ "<td>" + name + "</td>"
+								+ "<td>" + price + "</td>"
+								+ "</tr>";
+				});
+				
+				$("#tb").html(htmlStr);
+			}
+		}
+	</script>
+	<style type="text/css">
+		table, th, td {
+			border: 1px solid black;
+			border-collapse: collapse;
+		}
+		
+		table {
+			display: none;
+			width: 200px;
+		}
+		
+	</style>
+</head>
+<body>
+	<p>각 버튼 클릭 시, ajax 호출하고 다른 유형으로 데이터 받기</p>
+	<button type="button" onclick="proc('TEXT')">TEXT</button> <!-- dataType을 텍스트로  -->
+	<button type="button" onclick="proc('HTML')">HTML</button>
+	<button type="button" onclick="proc('JSON')">JSON</button>
+	<button type="button" onclick="proc('XML')">XML</button>
+	<hr>
+	<div id="result"></div>
+	<div id="resultTable">
+		<table id="tb">
+				<tr>
+					<th>메뉴명</th>
+					<th>가격</th>
+				</tr>
+<!-- 			<tr> -->
+<!-- 				<td>참치마요</td> -->
+<!-- 				<td>1000원</td> -->
+<!-- 			</tr> -->
+		</table>
+	</div>
+</body>
+</html>

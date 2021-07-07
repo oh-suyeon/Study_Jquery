@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>JQ 효과 </title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+	
+		$(document).ready(function() {
+			$("a").click(function(e) {
+				e.preventDefault();
+			});
+		});
+	
+		function proc(flag) {
+			
+			var src = $("li:nth-of-type(" + flag + ")" + " a").attr("href");
+			
+			if(flag==1){
+				$("div img").slideUp(1000, function() {	
+					$("div img").attr("src", src).slideDown(1000);
+				});
+				// slide는 세로 길이가 줄어든다. 
+				// => 만약 가로 길이를 지정하지 않은 경우, 세로가 줄어들면서 가로도 자동으로 계속 줄어들어 꼭  hide/show같은 모양이 된다.
+				
+			}else if(flag==2){
+				$("div img").fadeOut(1000, function() {
+					$("div img").attr("src", src).fadeIn(1000);
+				});
+				
+			}else if(flag==3){
+				$("div img").hide(1000, function() {
+					$("div img").attr("src", src).show(1000);
+				});
+				
+			}else{
+				return;
+			}
+		}	
+	
+	</script>
+	<style type="text/css">
+		img {
+			height: 200px;
+			width: 250px; 
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<h2>사진 목록</h2>
+		<ul>
+			<li><a href="../../images/lion.jpg" onclick="proc(1)">사자</a></li>
+			<li><a href="../../images/flower.jpg" onclick="proc(2)">꽃</a></li>
+			<li><a href="../../images/cloud.jpg" onclick="proc(3)">구름</a></li>
+		</ul>
+		
+		<hr color="red">
+		
+		<div>
+			<img alt="사진" src="../../images/noImage.gif">
+		</div>
+	
+	</div>
+	
+</body>
+</html>

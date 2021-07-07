@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>XMLHttpRequest 객체 사용하기</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+</head>
+<body>
+<!-- 	<button type="button" onclick="setGetByAsynch()">GET 비동기 전송</button> -->
+	<button type="button" onclick="setGet(true)">GET 비동기 전송</button>
+	<button type="button" onclick="setGet(false)">GET 동기 전송</button>
+	<br>
+	<br>
+	<br>
+	<button type="button" onclick="setPost(true)">Post 비동기 전송</button>
+	<button type="button" onclick="setPost(false)">Post 동기 전송</button>
+	<hr>	
+	<div id="result"></div>
+</body>
+<script type="text/javascript">
+	
+	var url = "p01_json_basic.html";
+	
+	function setGet(isAsynch) {
+		var xhttp = new XMLHttpRequest();
+		
+		// 비동기 방식일 경우, onreadystatechange가 send 뒤에 정의되었어도 정상 동작
+		// BUT! 동기 방식일 경우, onreadystatechange가 send 뒤에 정의되면 동작하지 않음 
+		// 		send 하고 기다렸다가 결과 받은 다음 (readystate가 더는 변하지 않음) onreadystatechange가 정의되기 때문.
+
+		xhttp.onreadystatechange = function() { 
+			console.log("readyState>>>>>" + this.readyState);
+			console.log("status>>>>>" + this.status);
+			
+			if(this.readyState == 4 && this.status == 200){ 
+				
+				console.log("responseText>>>>>" + this.responseText);
+				
+				$("#result").html(this.responseText);
+			}
+		};
+		
+// 		xhttp.open("GET", "p01_json_basic.html", true);
+		xhttp.open("GET", url + "?pName=hong&pId=test01", isAsynch);
+		xhttp.send(); 
+	}
+	
+	function setPost(isAsynch) {
+		
+		var xhttp = new XMLHttpRequest();
+		
+		xhttp.onreadystatechange = function() {
+			if(this.readyState == 4 && this.status == 200){
+				$("#result").html(this.responseText);
+			}
+		};
+		
+		xhttp.open("POST", url, isAsynch);
+		xhttp.send("pName=hong&pId=test01");
+	}
+	
+</script>
+</html>

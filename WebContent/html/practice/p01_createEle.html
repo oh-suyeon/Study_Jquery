@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>요소 생성해보기</title>
+	<script type="text/javascript" src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("<p/>", {
+				"id": "p1"
+				,"text": "클릭"
+				,"click": function() {
+					$(this).css('color', 'red')
+					.css('font-size', '+=5px');
+				}
+			}).appendTo("body");
+		});
+		$(function() {
+			$("h2:even").css("background", "lightpink");
+			$("h2:odd").css("background", "lightblue");
+			$("h2").click(function() {
+				$(this).hide();
+			});
+		});
+	</script>
+</head>
+<body>
+	<h2>클릭하면 사라집니다1</h2>
+	<h2>클릭하면 사라집니다2</h2>
+	<h2>클릭하면 사라집니다3</h2>
+	<h2>클릭하면 사라집니다4</h2>
+	<h2>클릭하면 사라집니다5</h2>
+	<h2>클릭하면 사라집니다6</h2>
+</body>
+</html>

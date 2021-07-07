@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>traversing</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		
+		// p01에 이어서 해보기
+		
+		$(function() {
+			
+			$("p").click(function() {
+				
+				var objParent = $(this).parent();
+				
+				if(objParent.is("div")){
+					
+					var obj = $(this).clone().css("color", "red");
+					
+					if(objParent.is($("div").first())){
+						obj.appendTo($(this).parent());
+					}else {
+						obj.prependTo($(this).parent());
+					}
+					
+				} else {
+					alert("작업대상이 아닙니다.");
+				}
+			});
+		});
+	
+	</script>
+	<style type="text/css">
+		div {
+			border : solid orange 3px;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<p>무궁화 꽃이 피었습니다</p>
+	</div>
+	
+	<p>은주는 예쁘다~</p>
+	
+	<div>
+		<p>사뿐이 즈려밟고 가시옵소서</p>
+	</div>
+</body>
+</html>

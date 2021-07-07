@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>ajax dataType xml 예제</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		function makeList(flag) {
+			
+			$.ajax({
+				url: "../jq9_data/cd_catalog.xml"
+				,type: "get"
+				,dataType: "xml"
+				,success: function(data){
+					makeTable(flag, data);
+				}
+				,error: function(xhr){
+					console.log(xhr);
+					alert("오류");
+				}
+			});
+		}
+		
+		function makeTable(flag, data) {
+			var cdList = data.getElementsByTagName("CD");
+			var tbHtml = "";
+			
+			if(flag == 1){
+				tbHtml = "<tr>"
+						+ "<th>" + "번호" + "</th>"
+						+ "<th>" + "제목" + "</th>"
+						+ "</tr>";
+			
+				$(cdList).each(function(idx, item) {
+					var title = item.children[0].innerHTML;
+					tbHtml += "<tr>"
+								+ "<td>" + (idx+1) + "</td>"
+								+ "<td>" + title + "</td>"
+								+ "</tr>";
+				});
+				
+			}else{
+				tbHtml = "<tr>"
+						+ "<th>" + "번호" + "</th>"
+						+ "<th>" + "제목" + "</th>"
+						+ "<th>" + "가수" + "</th>"
+						+ "<th>" + "국가" + "</th>"
+						+ "<th>" + "음반사" + "</th>"
+						+ "<th>" + "가격" + "</th>"
+						+ "<th>" + "발매년도" + "</th>"
+						+ "</tr>";
+			
+				$(cdList).each(function(idx, item) {
+					
+					tbHtml += "<tr>"
+							+ "<td>" + (idx+1) + "</td>";
+					
+					var tagList = item.children;
+					
+					$(tagList).each(function(idx, item) {
+						tbHtml += "<td>" + item.innerHTML + "</td>";
+					});
+					
+					tbHtml += "</tr>";
+				});
+			}
+			
+			$("#tb").html(tbHtml);
+		}
+		
+		function reset() {
+			var tbHtml = "<tr>"
+						+ "<th>" + "번호" + "</th>"
+						+ "<th>" + "제목" + "</th>"
+						+ "</tr>"
+						+ "<tr>"
+						+ "<td colspan='2' style='text-align: center;'>" + "버튼을 클릭하세요" + "</td>"
+						+ "</tr>";
+			$("#tb").html(tbHtml);			
+		}
+	
+	</script>
+	<style type="text/css">
+		table, th, td {
+			border: 1px solid silver;
+			border-collapse: collapse;
+		}
+		table {
+			width: 100%;
+		}
+		th {
+			background-color: aliceblue;
+		}
+		td {
+			padding: 0px 10px;
+		}
+	</style>
+</head>
+<body>
+	<button type="button" onclick="makeList(1)">노래 목록</button>
+	<button type="button" onclick="makeList(2)">노래 정보 목록</button>
+	<button type="button" onclick="reset()">초기화</button>
+	<hr>
+	<div>
+		<table id="tb">
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align: center;">버튼을 클릭하세요.</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

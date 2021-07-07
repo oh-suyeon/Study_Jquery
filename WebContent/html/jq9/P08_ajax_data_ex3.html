@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>ajax dataType xml 예제</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		
+		// xml에서 리스트 data를 만드는 함수
+		function makeList(flag) {
+			
+			$.ajax({
+				url: "../jq9_data/cd_catalog.xml"
+				,type: "get"
+				,dataType: "xml"
+				,success: function(data){
+					makeTable(data, flag);
+				}
+				,error: function(xhr){
+					console.log(xhr);
+					alert("오류");
+				}
+			});
+		}
+		
+		// data로 테이블을 만드는 함수
+		function makeTable(data, flag) {
+			var cdList = data.getElementsByTagName("CD");
+			var tbHtml = "";
+			
+			var choice = $("[name='choice']:checked").attr("id");
+			console.log(choice);
+			
+			if(choice == "c1"){
+				tbHtml = "<tr>"
+						+ "<th>" + "번호" + "</th>"
+						+ "<th>" + "제목" + "</th>"
+						+ "</tr>";
+			
+				$(cdList).each(function(idx, item) {
+					var title = item.children[0].innerHTML;
+					tbHtml += "<tr>"
+								+ "<td>" + (idx+1) + "</td>"
+								+ "<td>" + title + "</td>"
+								+ "</tr>";
+				});
+				
+			}else{
+				tbHtml = "<tr>"
+						+ "<th>" + "번호" + "</th>"
+						+ "<th>" + "제목" + "</th>"
+						+ "<th>" + "가수" + "</th>"
+						+ "<th>" + "국가" + "</th>"
+						+ "<th>" + "음반사" + "</th>"
+						+ "<th>" + "가격" + "</th>"
+						+ "<th>" + "발행년도" + "</th>"
+						+ "</tr>";
+			
+				$(cdList).each(function(idx, item) {
+					
+					tbHtml += "<tr>"
+							+ "<td>" + (idx+1) + "</td>";
+					
+					var tagList = item.children;
+					
+					// 데이터가 없을 경우 어떻게 처리?
+					$(tagList).each(function(idx, item) {
+						tbHtml += "<td>" + item.innerHTML + "</td>";
+					});
+					
+					tbHtml += "</tr>";
+				});
+			}
+			
+			$("#tb").html(tbHtml);
+		}
+		
+		// 라디오 버튼, 테이블을 초기화하는 함수
+		function resetTable() {
+			
+			$("#c1").prop("checked", true);
+// 			$("#c2").prop("checked", false);
+			
+			var tbHtml = "<tr>"
+						+ "<th>" + "번호" + "</th>"
+						+ "<th>" + "제목" + "</th>"
+						+ "</tr>"
+						+ "<tr>"
+						+ "<td colspan='2'>" + "버튼을 클릭하세요" + "</td>"
+						+ "</tr>";
+			$("#tb").html(tbHtml);			
+		}
+	</script>
+	
+	<style type="text/css">
+		#rdForm {
+			float: left;
+		}
+		#btDiv {
+			display: inline-block;
+			padding-left: 30px;
+		}
+		table, th, td {
+			border: 1px solid silver;
+			border-collapse: collapse;
+			text-align: center;
+		}
+		table {
+			width: 100%;
+			border: 2px solid gray;
+		}
+		th {
+			background-color: aliceblue;
+		}
+		td {
+			padding: 0px 10px;
+		}
+	</style>
+</head>
+<body>
+
+	<form id="rdForm"> 
+		<input type="radio" name="choice" id="c1" value="1" checked="checked">
+		<label for="c1">제목</label>
+		<input type="radio" name="choice" value="0" id="c2">
+		<label for="c2">전체</label>
+	</form>
+	
+	<div id="btDiv">
+		<button type="button" onclick="makeList()">조회</button>
+		<button type="button" onclick="resetTable()">초기화</button>
+	</div>
+	
+	<hr>
+	
+	<div>
+		<table id="tb">
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+			</tr>
+			<tr>
+				<td colspan="2">버튼을 클릭하세요.</td>
+			</tr>
+		</table>
+	</div>
+	
+</body>
+</html>

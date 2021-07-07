@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>html text 메서드 비교</title>
+	<script type="text/javascript" src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		function setResult(flag) {
+			var result;
+			if(flag==1){
+				result = $("p", "div").html();
+			}else{
+				result = $("p").text();
+			}
+			document.getElementById("result").innerHTML = result;
+			$("#result").html(result); 
+			
+			$("p").each(function(index, item){
+				console.log("*****************");
+				console.log(index);
+				console.log(item);
+				console.log("-----------------");
+			});
+			
+			$.each($("p"), function(index, item){
+			});
+		}
+	</script>
+</head>
+<body>
+	<p>동해물과 <em>백두산</em>이</p>
+	<p>마르고닳도록</p>
+	<div>
+		<p><strong>하느님</strong> 보우하사</p>
+		<p>우리나라 만세</p>
+	</div>
+	<button type="button" onclick="setResult(1)">html()</button>
+	<button type="button" onclick="setResult(2)">text()</button>
+	<hr>
+	<div id="result" style="height:50px; border:1px solid;">
+	</div>
+</body>
+</html>

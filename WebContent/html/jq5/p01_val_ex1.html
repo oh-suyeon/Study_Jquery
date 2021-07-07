@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Jquery 요소 정보 - val</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		function getInfo() {
+			var msg = "";
+			msg += $("#userName").val() + "\n"
+					+ $(":radio[name='gender']:checked").val() + "\n"
+					+ $("#job").val() + "\n"
+					+ $("#desc").val();
+			
+			alert(msg);
+		}
+		function setInfo() {
+			$("#userName").val("아이유");
+// 			$(":radio[name='gender']:checked").val("~") ==> 이렇게 바꾸면 라디오 버튼 자체의 값이 바뀐다.
+// 			document.getElementById("genderF").checked = "checked";
+			$("#genderF").attr("checked", "checked");
+			$("#job").val("J00");
+			$("#desc").val("나는요...");
+		}
+	</script>
+</head>
+<body>
+	<form>
+		<label for="userName">이름</label> : <input type="text" id="userName" value="홍길동"> <!-- 웹 접근성 위해 라벨에 for 붙이기 -->
+		<br>
+		<label>성별</label> : <!-- 쓸게 마땅치 않으면 빼기 -->
+		<input type="radio" id="genderM" name="gender" value="M" checked="checked">
+		<label for="genderM">남자</label> 
+		<input type="radio" id="genderF" name="gender" value="F">
+		<label for="genderF">여자</label> 
+		<br>
+		<label for="job">직업</label> :
+		<select id="job">
+			<option value="J00">가수</option>
+			<option value="J01">공무원</option>
+			<option value="J02" selected="selected">프로그래머</option>
+		</select>
+		<br>
+		<label for="desc">소개</label> :
+		<br>
+		<textarea id="desc" rows="10" cols="50">자기소개하기</textarea>
+		<hr>
+		<button type="button" onclick="getInfo();">조사</button>
+		<button type="button" onclick="setInfo();">입력</button>
+	</form>
+</body>
+</html>

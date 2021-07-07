@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>입력양식 선택자</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			//input 요소 (form 선택자)
+			$(":input").css("border", "solid 1px lime")
+			.css("background-color", "pink");
+			
+			//button요소와 button타입의 input(form 선택자)
+			$(":button").css("background-color", "lightblue");
+			
+			//button타입의 input
+			$("input[type='button']").css("background-color", "black")
+			.css("color", "white");
+			
+			//submit 타입(form 선택자)
+			$(":submit").css("background-color", "green");
+
+			//reset 타입(form 선택자)
+			$(":reset").css("background-color", "yellow");
+
+			//text, password 타입(form 선택자)
+			$(":text, :password").css("border-color", "blue");
+
+			//file, image 타입(form 선택자)
+			$(":file, :image").css("border-color", "red");
+		})
+	</script>
+</head>
+
+<body>
+	<form action="">
+		Text : <input type="text">
+		<br>
+		Password : <input type="password">
+		<br>
+		Radio : <input type="radio" id="rdA" name="rd"><label for="rdA">a</label>
+			    <input type="radio" id="rdB" name="rd"><label for="rdB">b</label>
+		<br>
+		Checkbox : <input type="checkbox" id="ch1" name="cb"><label for="ch1">1</label>
+			   	   <input type="checkbox" id="ch2" name="cb"><label for="ch2">2</label>
+		<br>
+		Textarea : 
+		<br>
+		<textarea rows="10" cols="25"></textarea>
+		<br>
+		Image : <input type="image" src="../../images/bear.jpg">
+		<br>
+		File : <input type="file">
+		<br>
+		Buttons : <button type="button">Normal</button>
+				  <button type="submit">submit</button>
+				  <button type="reset">reset</button> 
+		<br>
+				  <input type="button" value="Normal">  	
+				  <input type="submit" value="submit">  	
+				  <input type="reset" value="reset">  	
+	</form>
+</body>
+</html>

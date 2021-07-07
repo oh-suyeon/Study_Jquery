@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>JQ 효과 - show/hide</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+	
+		function proc(flag) {
+			if(flag == 1){ // p 요소 숨기기
+// 				$("p").hide(1000); 
+// 				alert("없어졌지!"); // 스크립트 읽는 속도가 빠르니까 의도대로 hide되고 난 후 실행되지 않음==> 콜백 함수 이용
+				
+// 				** 콜백 함수 호출1
+// 				$("p").hide(1000, function() {
+// 					alert("없어");
+// 				}); 
+				
+				//** 콜백 함수 호출2
+				$("p").hide(1000, showMsg); 
+				
+				
+			
+			}else if(flag == 2){ // p 요소 보이기
+				$("p").show(3000);	
+			
+			}else if(flag == 3){ // div 토글
+				$("div").toggle();	
+// 				$("div").toggle("fast");	
+			
+			}else{
+				return;
+			}
+		}
+		
+		function showMsg() {
+			alert("없어");
+		}
+	</script>
+	<style type="text/css">
+		p, div {
+			background-color: yellow;
+			display: inline-block;
+			width: 250px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<p>이 영역은 사라졌다 나타난다</p>
+	<br>
+	<button type="button" onclick="proc(1)">hide</button>
+	<button type="button" onclick="proc(2)">show</button>
+	<br><br>
+	<button type="button" onclick="proc(3)">toggle</button>
+	<br><br>
+	<div>
+		토글로 사라졌다 나타난다.
+	</div>
+</body>
+</html>

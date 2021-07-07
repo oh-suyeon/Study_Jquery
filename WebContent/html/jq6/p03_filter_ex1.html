@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Jquery - filter</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+	
+		$(function() {
+			//*********예제 1*****************************
+			
+// 			$("li:first, li:last").css("background", "yellow");
+			$("li", "#ex1").first().css("background", "yellow");
+			$("li", "#ex1").last().css("background", "yellow");
+			
+// 			$("li:eq(5)").css("background", "red");
+			$("li", "#ex1").eq(5).css("background", "red");
+			
+// 			$("li:lt(4)").css("font-weight", "bolder");
+			$("li", "#ex1").slice(0, 4).css("font-weight", "bolder");
+			
+// 			$("li:gt(4)").css("font-size", "0.5em");
+			$("li", "#ex1").slice(5).css("font-size", "0.5em");
+			
+			
+			//*********예제 2*****************************
+			
+// 			$("tr:even").css("background", "lightgray");
+			$("tr", "#ex2").even().css("background", "lightgray");
+			
+// 			$("tr:odd").css("background", "lightblue");
+			$("tr", "#ex2").odd().css("background", "snow");
+			
+			//*********예제 3*****************************
+			
+			$("tr", "#ex3").odd().css("background", "snow");
+			$("tr", "#ex3").even().css("background", "lightgray");
+			$("tr", "#ex3").first().css({"background": "black"
+										,"color": "white"});
+			
+			//*********예제 4*****************************
+			
+			$("li:first-child", "#ex4").css("border", "solid 3px red");
+			$("li", "#ex4").first().css("background", "yellow");
+			
+			$("li:last-child", "#ex4").css("border", "dotted 3px blue")
+			$("li", "#ex4").last().css("background", "green");
+			
+			//*********예제 5*****************************
+			
+			$("td:nth-child(3n)", "#ex5").css("background", "snow");
+			$("td:nth-child(3n-1)", "#ex5").css("background", "lightgray");
+			$("td:nth-child(3n-2)", "#ex5").css("background", "gray");
+			$("tr:first-child td", "#ex5").css({"background" : "black" // tr에 넣으면 색이 먹지 않음. td에 가려서.
+												,"color": "white"});
+			
+			//*********예제 6*****************************
+			$("span:contains(jQuery)", "#ex6").css("border", "solid 1px blue");
+			
+			$("span", "#ex6").not(":contains(jQuery)").css("border", "solid 1px gray");
+// 			$("span:not(:contains(jQuery))").css("border", "solid 1px gray");
+			
+			$("div:empty", "#ex6").css({"border": "solid 1px orange"
+									  , "height": "30px"
+							 		  , "width": "500px"});
+			
+			$("div span", "#ex6").css({"color": "red"
+							   		 , "font-weight": "bold"
+									 , "border": "solid red 1px"});
+			
+			$("div:parent", "#ex6").css({"font-weight": "bold"
+									   , "font-size": "1.5em"
+									   , "border": "solid 1px green"});
+			
+			$("div:has(span, p)", "#ex6").css({"border": "solid 3px green"
+										     , "height": "30px"
+								 		     , "width": "500px"});
+
+			//*********예제 7*****************************
+			
+// 			$("p:hidden", "#ex7")
+// 			$("p:visible", "#ex7")
+		});
+	
+	</script>
+	<style type="text/css">
+		div{
+			width: 300px;
+		}
+		
+		#ex2 {
+			text-align: center;
+		}
+		table {
+			width: 100%;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div id="ex1">
+		
+		<ul>
+			<li>one</li>
+			<li>two</li>
+			<li>three</li>
+			<li>four</li>
+			<li>five</li>
+			<li>six</li>
+			<li>seven</li>
+			<li>eight</li>
+			<li>nine</li>
+		</ul>
+		
+	</div>
+	
+	<hr>
+	
+	<div id="ex2">
+	
+		<table>
+			<tr>
+				<td>one</td>
+				<td>62만원</td>
+			</tr>
+			<tr>
+				<td>two</td>
+				<td>45만원</td>
+			</tr>
+			<tr>
+				<td>three</td>
+				<td>33만원</td>
+			</tr>
+			<tr>
+				<td>four</td>
+				<td>72만원</td>
+			</tr>
+			<tr>
+				<td>five</td>
+				<td>77만원</td>
+			</tr>
+			<tr>
+				<td>six</td>
+				<td>54만원</td>
+			</tr>
+			<tr>
+				<td>seven</td>
+				<td>61만원</td>
+			</tr>
+			<tr>
+				<td>eight</td>
+				<td>52만원</td>
+			</tr>
+			<tr>
+				<td>nine</td>
+				<td>88만원</td>
+			</tr>
+		</table>
+		
+	</div>
+	
+	<hr>
+	
+	<div id="ex3">
+		
+		<table>
+		
+			<tr>
+				<th>이름</th>
+				<th>주소</th>
+			</tr>
+			<tr>
+				<td>홍길동</td>
+				<td>대전</td>
+			</tr>
+			<tr>
+				<td>진달래</td>
+				<td>서울</td>
+			</tr>
+			<tr>
+				<td>개나리</td>
+				<td>부산</td>
+			</tr>
+			<tr>
+				<td>무궁화</td>
+				<td>대구</td>
+			</tr>
+		
+		</table>
+	
+	</div>
+	
+	<hr>
+	
+	<div id="ex4">
+		<p>여자들에게 인기있는 남자들</p>
+		<ol>
+			<li>능력 있는 남자</li>
+			<li>돈 많은 남자</li>
+			<li>잘 생긴 남자</li>
+			<li>프로그래머</li>
+		</ol>
+
+		<p>남자들에게 인기있는 여자들</p>
+		<ol>
+			<li>능력 있는 여자</li>
+			<li>돈 많은 여자</li>
+			<li>잘 생긴 여자</li>
+			<li>프로그래머</li>
+		</ol>
+			
+	</div>	
+	
+	<hr>
+	
+	<div id="ex5">
+	
+		<table>
+		
+			<tr>
+				<td>이름</td>
+				<td>주소</td>
+				<td>전화번호</td>
+			</tr>
+			<tr>
+				<td>홍길동</td>
+				<td>대전</td>
+				<td>010-111-111</td>
+			</tr>
+			<tr>
+				<td>진달래</td>
+				<td>서울</td>
+				<td>010-111-111</td>
+			</tr>
+			<tr>
+				<td>개나리</td>
+				<td>부산</td>
+				<td>010-111-111</td>
+			</tr>
+			<tr>
+				<td>무궁화</td>
+				<td>대구</td>
+				<td>010-111-111</td>
+			</tr>
+		
+		</table>
+	
+	</div>
+	
+	<hr>
+	
+	<div id="ex6">
+		<div></div>
+		<br>
+		<div>
+			헬로우~ 
+			<span>오늘도 즐겁게~ 열심히!</span>
+		</div>
+		<br>
+		<p>
+			Hello jQuery! 
+			<span>Thanks, jQuery!</span>
+		</p>
+		<br>
+		<div>jQuery</div>
+		<br>
+		<span>쉬운 jQuery~~!</span>
+		<br>
+		<div></div>
+		<br>
+	</div>
+	
+	<hr>
+	
+	<div id="ex7">
+	
+		<p>보이는 문단</p>
+		<p style="visibility: hidden;">숨겨진 문단</p>
+		<p style="display: none;">자리를 차지 못한 문단</p>
+		<p style="opacity: 0;">투명한 문단</p>
+		
+		<input type="hidden" value="안보이지롱">	
+<!-- 		<div style="width: 0px; height: 0px;">사이즈가 0인 디비전</div> -->
+		<img alt="사진" src="">
+		<p style="visibility: hidden;">숨겨진 문단<span>숨겨진 스팬</span></p>
+		
+		<hr>
+		<button type="button">hidden요소</button>
+	
+	</div>
+</body>
+</html>

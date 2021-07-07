@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>JQ 요소 컨트롤하기 예제</title>
+	<script type="text/javascript" src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		var check = 0;
+		
+		$(function() {
+			$("<button>", {
+				"type" : "button"
+				,"text" : "이미지 추가"
+				,"click" : function() {	// "click" : addImg (O) 
+					
+					if(check == 0){
+						$("<hr>").appendTo("body");
+					}
+					
+					$("<img>", {
+						"src" : "../../images/cloud.jpg"
+						,"alt" : "cloud image"
+						,"click" : function() {
+							$(this).css("border", "2px solid red")
+						}
+					}).css("width", "150px").css("height", "100px").appendTo("body");
+					
+					$("<br>").appendTo("body");
+					
+					check++;
+				}
+			}).appendTo("body"); 
+		});
+		
+		
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

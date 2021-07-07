@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>jq</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		function init() {
+			document.getElementsByTagName("body")[0].style.backgroundColor = "yellow";
+		}
+		function changeColor() {
+			// document.getElementsByTagName("body") 
+			alert(1);
+			$("body").css("color", "green");
+		}
+		
+// 		document.getElementsByTagName("body")[0].onload = function() {
+// 		}
+		$(document).ready(function(){
+			alert("준비완료");
+			$("body").css("color", "red");
+		});
+	</script>
+</head>
+<body onload="init();" onclick="changeColor();">
+	하이 JQUERY
+</body>
+</html>

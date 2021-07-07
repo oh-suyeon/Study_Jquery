@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>preventDefault_stopPropagation</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$(".last-el").click(function(e) {
+				e.stopPropagation();
+				alert("last-el");
+			});
+			$(".third-cover").click(function(e) {
+				e.stopPropagation();
+				alert("third-cover");
+			});
+			$(".second-cover").click(function(e) {
+				e.stopPropagation();
+				alert("second-cover");
+			});
+			$(".first-cover").click(function(e) {
+				alert("first-cover");
+			});
+		})
+	</script>
+	<style type="text/css">
+		div.first-cover {
+			height: 100px;
+			background-color: yellow; 
+		}
+		ul {
+			height: 80px;
+			background-color: lightblue; 
+		}
+		li {
+			height: 50px;
+			background-color: pink; 
+		}
+		div.last-el {
+			background-color: green; 
+		}
+	</style>
+</head>
+<body>
+	<div class="first-cover">
+		<ul class="second-cover">
+			<li class="third-cover">
+				<div class="last-el">event</div>
+			</li>		
+		</ul>
+	</div>
+</body>
+</html>

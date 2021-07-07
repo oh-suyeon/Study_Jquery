@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>stopPropagation 이벤트 버블링 막기</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		
+		$(document).ready(function() {
+			
+			$("div.ex1").click(function() {
+				alert("div영역");
+			});
+			
+			$("p.ex1").click(function(e) {
+				alert("p영역");	
+				e.stopPropagation();
+			});
+
+			$("div p span").click(function(e) {
+				alert("span영역");
+				e.stopPropagation(); 
+			});
+			
+			//** 예제 1. ************************************************//
+			$("h1.ex2").click(function() {
+				$(this).css("background", "green");
+			});
+
+			$("h1 > span").click(function(e) {
+				$(this).css("background", "tomato");
+				return false;
+			});
+			
+			//** 예제 2. ************************************************//
+			$("span > button").click(function(e) {
+				$(this).css("border", "solid 3px lightblue")
+				e.stopPropagation();
+			});
+
+			$("div > span").click(function(e) {
+				$(this).css("border", "solid 3px lightgreen")
+				e.stopPropagation();
+			});
+
+			$("div:nth-of-type(2)").click(function(e) {
+				$(this).css("border", "solid 3px gray");
+				$("<p>").text("hello~").appendTo(this);
+// 				$(this).append("<p>hello~</p>");
+// 				$(this).append("hello~");
+			});
+			
+			$("a").click(function(e) {
+				var year = prompt("태어난 년도 입력");
+				var currYear = new Date().getFullYear();
+				
+				var age = currYear - year + 1;
+				
+				if(age < 20){
+					e.preventDefault();
+					alert("20세 이상만 이용 가능합니다.");
+				}
+			});
+			
+			/////이렇게 바꿔보기!
+			$("div:nth-of-type(2), div>span, span>button, a").click(function(e) {
+				console.log(e.target);
+			});
+			
+		});
+	
+	</script>
+	<style type="text/css">
+		div.ex1 {
+			border: 1px solid blue;
+			height: 100px; 
+		}
+		p.ex1 {
+			border: 1px solid tomato;
+			height: 30px; 
+			margin: 20px;
+			padding: 10px;
+		}
+		span.ex1 {
+			border: 1px solid green; 
+			margin: 20px;
+		}
+		div.ex3 {
+			background-color: pink;
+			height: 200px;
+			width: 250px;
+			padding: 0px 30px;
+			overflow: auto;
+		}
+		div > span {
+			background-color: yellow;
+			display: inline-block;
+			text-align: center;
+			line-height: 100px;
+			width: 150px;
+		}	
+	</style>
+</head>
+<body>
+	<div class="ex1">
+		div영역
+		<p class="ex1"> 
+			p영역
+			<span class="ex1">
+				스팬영역
+			</span>
+		</p>
+	</div>
+	
+	<hr>
+	
+	<h1 class="ex2">
+		큰 제목 안에 <span class="ex2">작은 영역</span>이 있다. 
+	</h1>
+
+	<hr>
+	
+	<div class="ex3">
+		<span>
+			<button type="button">클릭하세요</button>
+		</span>
+	</div>
+	<br>
+	<hr color="red">
+	<br>
+	<a href="http://www.daum.net" target="_blank">다음으로 이동</a>
+	
+	
+	
+</body>
+</html>

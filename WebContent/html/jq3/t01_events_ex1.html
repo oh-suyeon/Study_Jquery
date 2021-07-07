@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>이벤트</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("p").click(function (e) {
+				// this ==> <p> 
+				console.log(e);
+				var eventType = e.type;
+				console.log(e.type);
+				console.log(e.target);
+				console.log(e.button);
+				console.log(e.pageX);
+				console.log(e.pageY);
+				console.log(e.screenX);
+				console.log(e.screenY);
+			});
+			
+			// 이벤트 여러개 부여하기
+			$("#tmp1").mouseenter(function(){
+				$(this).css("background", "yellow");
+			});
+			$("#tmp1").mouseleave(function(){
+				$(this).css("background", "green");
+			});
+			
+			// 이벤트 여러개 부여하기 - on 사용
+			$("#tmp2").on({  // 이벤트를 속성처럼
+				mouseenter : function() {
+					$(this).css("background", "orange");
+				}
+				,mouseleave : function() {
+					$(this).css("background", "gray");
+				}
+			}); 
+			
+			// 예제 1
+			$("div, button").mousedown(function(e) {
+				var str = "type : " + e.type + "\ntarget : " + e.target + "\npageX : " + e.pageX
+				+ "\npageY : " + e.pageY + "\nscreenX : " + e.screenX + "\nscreenY : " + e.screenY
+				+ "\nbutton : " + e.button;
+				alert(str);
+			});
+			
+			// 예제 2
+			$("body").mousemove(function(e) {
+				$("#log").text("pageX : " + e.pageX + " pageY : " + e.pageY 
+						+ " screenX : " + e.screenX + " screenY : " + e.screenY);
+			});
+			
+		});
+	</script>
+		
+</head>
+<body>
+	<p>JQeury 이벤트 배워봅시다~</p>
+	<p id="tmp1">이벤트</p>
+	<p id="tmp2">on이벤트</p>
+	<hr>
+	<div style="width:300px; height:200px; background-color:yellow"></div>
+	<br>
+	<button type="button">버튼</button>
+	<br><br>
+	<div id="log" style="height: 50px;"></div>
+</body>
+</html>

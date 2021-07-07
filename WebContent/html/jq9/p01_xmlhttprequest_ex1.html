@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>XMLHttpRequest 객체 사용하기</title>
+	<script type="text/javascript">
+		/********************************/
+		// 1) XMLHttpRequest 객체 생성
+		var xhttp = new XMLHttpRequest();
+		// xhttp.readyState : 0
+		
+		/********************************/
+		// // onreadystatechange가 일어나고 있을 open, send 전에 정의해줘야 한다. 
+		// 서버가 데이터를 받는 중이면 ==> xhttp.readyState : 3
+		// 서버가 데이터를 다 받았으면 ==> xhttp.readyState : 4
+		// 3) 서버로부터 응답 처리 (readyState가 바뀔때 캐치하면 된다.)
+		
+		xhttp.onreadystatechange = function() { 
+			// 서버가 데이터를 [전부 받아서, 처리 결과가 성공일 때
+			if(this.readystate == 4 && this.status == 200){ 
+				var result = this.responseText;
+				console.log(result);
+				// 데이터를 주고 받을때 타입이 JSON이라면
+				var objResult = JSON.parse(result);
+			
+			}
+		};
+
+		/********************************/
+		// 2) 서버로 요청
+		// 2-1) get 방식  호출 - url뒤에 데이터를 붙여서 보낸다. (ex. test.jsp?key=value&key=value...) 
+		xhttp.open("Get", "test.jsp", true); // get 방식, 비동기로 'test.jsp'에 연결해 주시오!
+		// xhttp.readyState : 1
+		xhttp.send(); // 데이터 요청하기(요청 보내기, 데이터 보내기)
+		// xhttp.readyState : 2
+		 
+		// 2-2) post 방식 호출 - 헤더에 데이터를 담아서 보낸다. 
+		xhttp.open("POST", "text.jsp", true); // post 방식, 비동기로 'test.jsp'에 연결해 주시오!
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //외우지 않아도 됨. 생략이 가능하기 때문.
+		xhttp.send("name=아이유&age=30"); // 보낼 데이터를 기술
+		
+		
+		
+		
+		
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

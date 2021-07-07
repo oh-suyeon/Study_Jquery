@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>xml http request</title>
+	<script type="text/javascript">
+	
+		var xhttp = new XMLHttpRequest();
+		
+		xhttp.onreadystatechange = function() {
+			if(this.readyState==4 && this.status == 200){
+				var result = this.responseText();
+				var objResult = JSON.parse(result);
+			}
+		};
+		
+		xhttp.open("POST", "../jq8/p01_json_basic.html", true);
+		xhttp.send();
+		
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

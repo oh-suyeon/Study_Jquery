@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Json</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+	
+		var obj = {
+			name: "홍길동"
+			,phone: "010-1234-1004"
+			,birth: "1425-12-14"
+			,age: 25
+			,addr: {
+				sido: "대전광역시"
+				,gugun: "중구"
+				,dong: "대사1동"
+				,bunji: "123번지"
+				,postCode: "12345" // 자릿수가 정해진 숫자는 문자열로 놓는 게 일반적. 그리고 00001식의 번호도 있으니까.
+			}
+			,hobby: ["무술", "검술", "독서"]
+			,noble: false
+			,son: null
+		};
+	
+		var objJSON = {
+			"name": "홍길동"
+			,"phone": "010-1234-1004"
+			,"age": 25
+			,"addr": {
+				"sido": "대전광역시"
+				,"gugun": "중구"
+				,"dong": "대사1동"
+				,"bunji": "123번지"
+				,"postCode": "12345"
+			}
+			,"hobby": ["무술", "검술", "독서"]
+			,"noble": false
+			,"son": null
+		};
+		
+		// 형변환 메서드 
+		// stringify
+		// parse(str) 
+		
+		function proc() {
+			// 1) 자바스크립트 객체를 JSON문자열로 변환
+			var str = JSON.stringify(obj);
+			$("#result1").text(str);
+			
+			// 2) JSON문자열을 자바스크립트 객체로 변환
+			var strTmp = "{\"id\": \"test01\", \"name\": \"아이유\"}"; 
+			var objJS = JSON.parse(strTmp);
+			$("#result2").text(objJS);
+			
+			// 이름, 주소, 취미, 생년월일
+			var hongObj = JSON.parse(str);
+			
+			$("#result3").text(hongObj.name);
+			
+			var addr = hongObj.addr;
+			var strAddr = "[" + addr.postCode + "] " 
+							  + addr.sido + " " + addr.gugun + " " 
+							  + addr.dong + " " + addr.bunji;
+			
+			
+			$("#result4").text(strAddr);
+			
+			var strHobby = "";
+			$(hongObj.hobby).each(function(idex, item) {
+				strHobby += item + ", ";
+			});
+			$("#result5").text(strHobby.substr(0, strHobby.length-2));
+			
+			$("#result6").text(new Date(hongObj.birth));
+		}
+
+	</script>
+	
+</head>
+<body>
+	<button type="button" onclick="proc()">JSON 변환 테스트</button>
+	<p>1차 변환(obj > str) : <span id="result1"></span></p>
+	<p>2차 변환(str > obj) : <span id="result2"></span></p>
+	<p>이름 : <span id="result3"></span></p>
+	<p>주소 : <span id="result4"></span></p>
+	<p>취미 : <span id="result5"></span></p>
+	<p>생년월일 : <span id="result6"></span></p>
+</body>
+</html>

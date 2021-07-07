@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>selector</title>
+	<script type="text/javascript" src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("body").css("background", "yellow");
+			$("h1").css("color", "blue");
+			$("h2#para").css("color", "green");
+			$("h2.sample").css("color", "red");
+		});
+	</script>
+</head>
+<body>
+	<div>
+		<h1>제목입니다.</h1>
+		<h2 id="para">작은제목입니다.</h2>
+		<h2 class="sample">샘플입니다.</h2>
+	</div>
+</body>
+</html>

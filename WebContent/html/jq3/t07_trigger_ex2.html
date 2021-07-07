@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>trigger와 triggerHandler - 시도 군구 예제!</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			// 시도 콤보박스에 onchange 이벤트 바인딩하기
+			$("#sido").change(function() {
+				var val = $(this).val();
+				console.log(val);
+				
+				//서버로 선택된 시도 정보에 해당하는 구군 정보 목록 요청
+				var gugunList = ["대덕구", "동구", "서구", "중구", "유성구"];
+				
+				$(gugunList).each(function(idx, itm) {
+					$("<option>"+itm+"</option>").appendTo("#gugun");
+				})
+			});
+			
+			initSidoSelect();
+			
+		});
+		
+		function initSidoSelect() {
+			//서버로 '시도' 정보(목록)를 요청
+// 			var sidoList = ["서울특별시", "대전광역시", "부산광역시"];	// 객체로 받아서 value 값을 세팅해보기
+			var sidoList = [
+				{name : "서울특별시"
+				 ,code : "02"}
+				,{name : "대전특별시"
+				 ,code : "042"}
+				,{name : "부산특별시"
+				 ,code : "051"}
+			]
+			for(var i=0; i<sidoList.length; i++){
+				var obj = sidoList[i];
+				$("<option value=\'"+ obj.name+ "\'>"+obj.code+"</option>").appendTo("#sido");
+				//<option value='obj.name'> obj.code </option>
+			}
+			
+			$("#sido").trigger("change"); 
+			// 코드를 또 쓸 필요 없음(중복 X) 핸들러가 더 적당하긴 하다. 초기화 필요
+		}
+		
+	</script>
+</head>
+<body>
+	<div>
+		시/도 : 
+		<select id="sido">
+		</select>
+		<br>
+		구/군 : 
+		<select id="gugun">
+		</select>
+	</div> 
+</body>
+</html>

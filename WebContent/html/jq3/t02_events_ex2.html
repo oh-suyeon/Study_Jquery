@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>이벤트</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		
+		$(document).ready(function() {
+			
+			var orgSrc = "";
+			var dbcnt = 0;
+			var dbcntLimit = $("img").length; 
+				
+			$("img").on({
+				mouseover : function(e) {
+					imgSrc = e.target.src;
+					e.target.src = "../../images/bear.jpg";
+				}
+				,mouseleave : function(e) {
+					e.target.src = imgSrc;
+				}
+				,dblclick : function(e) {
+					$(this).hide();
+					dbcnt++;
+					
+					if(dbcnt == dbcntLimit){
+						$("button").show();
+						dbcnt = 0;
+					}
+					
+					// each로 hiddenCnt 구하기					
+// 					var hiddenCnt = 0;
+// 					$("img").each(function(idx, item){
+// 						if($(item).css("display") == "none"){
+// 							hiddenCnt++;
+// 						}
+// 					});
+// 					if(hiddenCnt == dbcntLimit){
+// 						$("button").show();
+// 					}
+
+					// 속성 선택자로 구하기. (간단해보이지만 하드코딩 느낌이라 each를 선호)
+// 					hiddenCnt = $("img[style='display: none;']").length;
+				}
+			});
+			
+			$("button").mousedown(function(e) {
+				$(this).hide(); // 깜빡거림이 있을 수 있어서 먼저 숨겨주기
+				$("img").show();				
+			});
+			
+		});
+		
+	</script>
+	<style type="text/css">
+		img {
+			height : 100px;
+			width : 100px;
+			cursor : pointer;
+		}
+		
+		button {
+			display : none;
+			cursor : pointer;
+		}
+	</style>
+</head>
+<body>
+	<img alt="사진1" src="../../images/tiger.jpg">
+	<img alt="사진2" src="../../images/lion.jpg">
+	<img alt="사진3" src="../../images/tiger.png">
+	<br>
+	<button type="button">보이기</button>
+</body>
+</html>

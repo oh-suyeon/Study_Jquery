@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Jquery - filter</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+	
+		var imgRootStr = "../../images/";
+		var imgFormat = ".jpg";
+		
+		$(function() {
+			//**예제 1************************************************
+			$("form :enabled", "#ex1").css("border", "solid blue 3px");
+			$("form :disabled", "#ex1").css("border", "solid red 3px");
+
+			//**예제 2************************************************
+			// [전송] 버튼 클릭 이벤트
+			$("button:contains(전송)", "#ex2").click(function() {
+				
+				var checkedArr = $("[name='hobby']:checked", "#ex2");
+				var checkedStr = "";
+				
+				if(checkedArr.length < 1){
+					alert("취미를 선택해주세요.");
+					return;
+				}
+				
+				$(checkedArr).each(function(inx, item) {
+					checkedStr += $(item).next().text() + "(" + item.value + ")" + ", ";
+				}); 
+				
+				checkedStr = checkedStr.substr(0, checkedStr.length-2)
+				
+				alert(checkedStr);
+				$("span", "#ex2").text(checkedStr);
+			});
+			
+			// [초기화] 버튼 클릭 이벤트
+			$("button:contains(초기화)", "#ex2").click(function() {
+
+				$("[name='hobby']", "#ex2").prop("checked", false);
+				$("span", "#ex2").text("");
+				
+			});
+			
+			//**예제 3************************************************
+			// [전송] 버튼 클릭 이벤트
+			$("button:contains(전송)", "#ex3").click(function() {
+				
+				var selectedArr = $("#spring option:selected");
+				var selectedStr = "";
+				
+				if(selectedArr.length < 1){
+					alert("꽃을 선택해주세요.");
+					return;
+				}
+				
+				// 이전 이미지가 존재하지 않는 경우
+				if($("#result2").length < 1){
+					addSelectedEle();
+				// 이전 이미지가 존재하는 경우
+				}else{
+					$("#result2 img").fadeOut(500, addSelectedEle()); // 기존 이미지 완전히 사라지고 새로운 이미지를 넣고 싶은데 안됨 
+				}
+				
+			});
+			
+			// [초기화] 버튼 클릭 이벤트
+			$("button:contains(초기화)", "#ex3").click(function() {
+				
+				$("#spring option:selected").prop("selected", false);
+				$("#result").text("");
+				$("#result2 img").fadeOut(1000);
+			});
+			
+		});
+		
+		// 선택된 옵션으로 텍스트, 이미지 요소 붙이기
+		function addSelectedEle() {
+			var selectedArr = $("#spring option:selected");
+			
+			var selectedStr = "";
+			
+			$(selectedArr).each(function(idx, item) {
+				selectedStr += $(item).text() + "(" + $(item).val() + ")" + ", ";
+				
+				$("<img>").attr({"src": imgRootStr + $(item).val() + imgFormat
+								,"alt": $(item).text()
+								,"title": $(item).text()})
+						  .appendTo("#result2")
+						  .css("display", "none").fadeIn(1000);
+			});
+			
+			selectedStr = selectedStr.substr(0, selectedStr.length-2);
+			$("#result").text(selectedStr);
+		}
+		
+	</script>
+	<style type="text/css">
+	
+		img{
+			height: 100px;
+		}
+		
+	</style>
+</head>
+<body>
+
+	<div id="ex1">
+		<form action="">
+			<input type="text">
+			<br>
+			<input type="password">
+			<br>
+			<select name="disSelect" disabled="disabled">
+				<option>Option1</option>
+				<option>Option2</option>
+				<option>Option3</option>
+			</select>
+			<br>
+			<textarea name="enTextarea" rows="10" cols="20">text</textarea>
+			<br>
+			<input type="button" value="확인" disabled="disabled">
+			<button type="button" disabled="disabled" value="">확인</button>		
+			<br>
+		</form>
+	</div>
+	
+	<hr>
+	
+	<div id="ex2">
+		<form action="">
+			취 미 :
+			<input type="checkbox" id="hobby1" value="H01" name="hobby"><label for="hobby1">여행</label>
+			<input type="checkbox" id="hobby2" value="H02" name="hobby"><label for="hobby2">장기</label>
+			<input type="checkbox" id="hobby3" value="H03" name="hobby"><label for="hobby3">바둑</label>
+			<input type="checkbox" id="hobby4" value="H04" name="hobby"><label for="hobby4">독서</label>
+			<input type="checkbox" id="hobby5" value="H05" name="hobby"><label for="hobby5">낚시</label>
+			<br>
+			<br>
+			<button type="button">전송</button>
+			<button type="button">초기화</button>
+			<br>
+			<p>선택 결과 : <span></span> </p>
+		</form>
+	</div>
+	
+	<hr>
+	
+	<div id="ex3">
+		<form action="">
+			봄 소식 : 		
+			<select name="spring" id="spring" multiple="multiple" size="6">
+				<option value="F01">개나리</option>
+				<option value="F02">진달래</option>
+				<option value="F03">민들레</option>
+				<option value="F04">벚꽃</option>
+				<option value="F05">목련</option>
+				<option value="F06">철쭉</option>
+			</select>
+			<br><br>
+			<button type="button">전송</button>
+			<button type="button">초기화</button>
+			<br><br>
+			<div>
+				선택 결과 : <span id="result"></span>
+				<br><br>
+				<div id="result2"></div>
+			</div>
+		
+		</form>
+	</div>
+	
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Jquery - append</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+	
+		var imgRootPath = "../../images/"; // 이미지 경로 변수로 저장 
+		
+		$(document).ready(function() {
+			
+			$("p").click(function() {
+				
+				var addImg = $("<img>").attr("src", imgRootPath + this.title + ".jpg")
+							 .attr("alt", this.title).css("display", "none").fadeIn(1000);
+				$(this).before(addImg);
+			});
+			
+			$(document).on("click", "img", function() {
+				$(this).toggleClass("chosen");
+			});
+			
+			$("<button>").text("지우기").attr("type", "button").appendTo("body");
+			$("button").click(function(){
+				$("[class='chosen']").fadeOut(1000);
+			});
+			
+		});
+	</script>
+	<style type="text/css">
+		p, img {
+			cursor: pointer;
+		}
+		img {
+			height: 100px;
+		}
+		.chosen {
+			border: green solid 3px;
+		}
+	</style>
+	
+</head>
+<body>
+	<div>
+		<p title="fox">여우</p>
+		<p title="rabbit">토끼</p>
+		<p title="cat">고양이</p>
+		<p title="squarel">다람쥐</p>
+	</div>
+</body>
+</html>

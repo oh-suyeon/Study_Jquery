@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>JSON 데이터</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script src="../../js/common/myUtils.js"></script>
+	
+	<style type="text/css">
+		table, th, td{
+			border: 1px solid black;
+			border-collapse: collapse;
+		}
+		table {
+			width: 100%;
+		}
+	
+	</style>
+	<script type="text/javascript">
+		function proc(flag) {
+			var urlStr = "";
+			if(flag){
+				urlStr = "../jq9_data/data_jsonlist.jsp";
+			}else{
+				urlStr = "../jq9_data/data_jsonlist_empty.jsp";
+			}
+			$.ajax({
+				url: urlStr
+				,type:"get"
+				,data:""
+				,dataType:"json"
+				,success: function(data) {
+					console.log(data);
+					makeTable(data);		
+				}
+				,error: function(xhr) {
+					console.log(xhr);
+					alert("오류발생");
+				}
+			});
+		}
+		
+		function makeTable(data) {
+			
+			$("#tb tbody").empty(); // 기존 데이터 지우기. 
+			
+			var tbHtml = "";
+			
+			$(data).each(function(idx, item) {
+				
+				tbHtml += "<tr>"
+						+ "<td>" + (item.no==null? " " : item.no) + "</td>"
+						+ "<td>" + (item.id==null? " " : item.id) + "</td>"
+						+ "<td>" + (item.name==null? " " : item.name) + "</td>"
+						+ "<td>" + (item.hp==null? " " : format("HP", item.hp)) + "</td>"
+						+ "<td>" + (item.birth==null? " " : format("DATE", item.birth)) + "</td>"
+						+ "</tr>";
+			});
+			
+			if(data.length==0){
+				// t헤더만 있고 t바디는 없으면 안됨
+				// t바디는 필수!
+				tbHtml += "<tr>"
+						+ "<td colspan='5' style='text-align: center;'>" 
+						+ "검색 결과가 없습니다." + "</td>"
+						+ "</tr>";
+			}
+			
+			$("#tb tbody").html(tbHtml);
+		}
+		
+	</script>
+</head>
+<body>
+	<h3>회원 목록</h3>
+	<button type="button" onclick="proc(1)">JSON List</button>
+	<button type="button" onclick="proc(0)">빈 데이터</button>
+	<hr>
+	<div id="result">
+		<table id="tb">
+			<colgroup>
+				<col style="width: 60px; ">
+				<col style="width: 100px;"> 
+				<col style="width: auto;">
+				<col style="width: 130px;">
+				<col style="width: 100px;">
+			</colgroup>
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>ID</th>
+					<th>이름</th>
+					<th>연락처</th>
+					<th>생년월일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td colspan="5" style="text-align: center;">조회 버튼을 클릭하세요.</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>	
+</body>
+</html>

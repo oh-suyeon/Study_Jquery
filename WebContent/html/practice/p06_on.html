@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>on 연습</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+	 	$(document).ready(function() {
+	 		//** 1. on으로 여러 이벤트 넣기
+// 	 		$("p").on({
+// 				mouseover : function() {
+// 					this.className = "changeFont";
+// 				}
+// 	 			,mouseleave : function() {
+// 					this.className = "";
+// 				}
+// 			});
+	 		
+			//** 2. 이벤트 묶기 + toggleClass
+// 			$("p").on("mouseover mouseout", function() {
+// 				$(this).toggleClass("changeFont");
+// 			});
+			
+			//** 3. 새로 생성되는 요소에 이벤트 주기
+			$(document).on("mouseover mouseout", "p", function() {
+				$(this).toggleClass("changeFont");
+			})
+
+	 		$("button").on("click", function(){
+				$("<p>").text("Move the mouse over here").appendTo("body");
+			});
+		});
+	</script>
+	<style type="text/css">
+		.changeFont {
+			font-size: 1.5em;
+			color: tomato;
+		}
+	</style>
+</head>
+<body>
+	<p>Move the mouse over here</p>
+	<p>Move the mouse over here</p>
+	<p>Move the mouse over here</p>
+	<button type="button">create 'p'</button>
+</body>
+</html>

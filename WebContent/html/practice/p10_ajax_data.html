@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>ajax - 데이터 주고 받기</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		function proc(type) {
+			var urlStr = "../jq9_data/";
+			if(type=="text"){
+				urlStr += "data_text.txt";
+				
+			}else if(type=="html"){
+				urlStr += "intro.html";
+				
+			}else if(type=="json"){
+				urlStr += "data_json.txt";
+				
+			}else if(type=="xml"){
+				urlStr += "data_xml.xml";
+			}
+			
+			$.ajax({
+				url: urlStr
+				,type: "post"
+				,dataType: type 
+				,success: function(data) {
+					console.log(data);
+					makeResult(type, data);
+				} 
+				,error: function(xhr) {
+					console.log(xhr);					
+					alert("오류");
+				} 
+			});
+		}
+		
+		function makeResult(type, data) {
+			if(type=="text" || type=="html"){
+				$("#resultStr").html(data);
+				
+			}else if(type=="json"){
+				var htmlStr = "<tr>" 
+							+ "<th>" + "이름" + "</th>"
+							+ "<td>" + data.name + "</td>"
+							+ "</tr>" 
+							+ "<tr>"
+							+ "<th>" + "나이" + "</th>"
+							+ "<td>" + data.age + "</td>"
+							+ "</tr>" 
+							+ "<tr>"
+							+ "<th>" + "연락처" + "</th>"
+							+ "<td>" + data.phone + "</td>"
+							+ "</tr>";
+				
+				$("#table").html(htmlStr);
+			}else if(type=="xml"){
+				var lunchs = data.getElementsByTagName("LUNCH");
+				var htmlStr = "<tr>"
+							+ "<th>" + "메뉴" + "</th>"
+							+ "<th>" + "가격" + "</th>"
+							+ "</tr>";
+				$(lunchs).each(function(idx, item) {
+					var menu = item.children[0].innerHTML;
+					var price = item.children[1].innerHTML;
+					htmlStr	+= "<tr>"
+								+ "<td>" + menu + "</td>"
+								+ "<td>" + price + "</td>"
+								+ "</tr>";
+				});
+				
+				$("#table").html(htmlStr);
+			}
+		}
+		
+	</script>
+</head>
+<body>
+	<button type="button" onclick="proc('text')">TEXT</button>
+	<button type="button" onclick="proc('html')">HTML</button>
+	<button type="button" onclick="proc('json')">JSON</button>
+	<button type="button" onclick="proc('xml')">XML</button>
+	<hr>
+	<div id="resultStr"></div>
+	<div id="resultTable">
+		<table id="table"></table>	
+	</div>
+</body>
+</html>

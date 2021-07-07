@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>반복문</title>
+	<script type="text/javascript" src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		
+		$(document).ready(function() {
+			
+			$("p").each(function(index, item) {
+				console.log(item);
+			});
+			
+			var ele = document.getElementsByTagName("p");
+			$.each(ele, function(index, item) {
+				console.log(item);
+			})
+		});
+	
+	</script>
+</head>
+<body>
+	<p>1</p>
+	<p>2</p>
+	<p>3</p>
+	<p>4</p>
+	<p>5</p>
+	<p>6</p>
+</body>
+</html>

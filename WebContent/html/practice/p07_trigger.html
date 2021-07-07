@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>trigger 연습</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			
+			// 사용자 정의 이벤트는 발생하기 위해서 trigger가 필요
+			$("p").on("myEvent", function(e, name) {
+				$(this).text(name + ", 멋진 이름이군.")
+			});
+			
+// 			$("button").click(function() {
+// 				$("p").trigger("myEvent", "Anne");
+// 			});
+
+			$("button:nth-of-type(1)").click(function() {
+				$("p").triggerHandler("myEvent", "Anne");
+			});
+			
+			$("button:nth-of-type(2)").click(function() {
+				$("input").trigger("focus");
+			});
+			
+			$("button:nth-of-type(3)").click(function() {
+				$("input").triggerHandler("focus");
+			});
+			
+			$("input").focus(function() {
+				$("<span>").html("<em>짠!</em>").appendTo("body").fadeOut(1000);				
+			});
+		});
+	</script>
+</head>
+<body>
+	<button type="button">click!</button>
+	<p>이름이 뭐지?</p>
+	<hr>
+	<button type="button">trigger!</button>
+	<button type="button">triggerH!</button>
+	<hr>
+	<input type="text" value="첫번째">
+	<br>
+	<input type="text" value="두번째">
+</body>
+</html>

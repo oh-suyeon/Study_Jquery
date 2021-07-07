@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Jquery - prop</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		
+		$(document).ready(function() {
+			
+			$("button").click(function() {
+				
+				if($(this).text() == "attr 확인"){
+					var msg = "선택의 checked는 " + $("#tmp").attr("checked") + "\n"
+							+ "성별의 checked는 " + $("[name='gender']:checked").attr("checked") + "\n" // 사용자가 다시선택한 남자를 가져와서 attr의 check를 봤는데, 초기값에는 checked 속성이 없으니까 undefined 
+							+ "성별의 checked는 " + $("[name='gender']:checked").val() + "\n"  
+							+ "리스트의 selected는 " + $("#number").attr("selected") + "\n"
+							+ "리스트의 val는 " + $("#number").val() + "\n"
+							+ "input1의 readonly는 " + $("#input1").attr("readonly") + "\n"
+							+ "input2의 disabled는 " + $("#input2").attr("disabled") + "\n"
+							+ "btnSubmit의 disabled는 " + $("#btnSubmit").attr("disabled");
+					alert(msg);
+					
+				}else{
+					var msg = "선택의 checked는 " + $("#tmp").prop("checked") + "\n"
+							+ "성별의 checked는 " + $("[name='gender']:checked").prop("checked") + "\n"
+							+ "성별의 checked는 " + $("[name='gender']:checked").val() + "\n" 
+							+ "리스트의 selected는 " + $("#number").prop("selected") + "\n"
+							+ "리스트의 val는 " + $("#number").val() + "\n"
+							+ "input1의 readonly는 " + $("#input1").prop("readonly") + "\n"
+							+ "input2의 disabled는 " + $("#input2").prop("disabled") + "\n"
+							+ "btnSubmit의 disabled는 " + $("#btnSubmit").prop("disabled");
+					alert(msg);
+					
+				}
+			});
+			
+			$("input[type='text']").click(function() {
+			});
+			
+			//**** 예제  ************************************************************
+			$("#checkAll").click(function() {
+				
+				// 또 다른 방법 : 한번에 바꾸기  
+// 				var val = $(this).prop("checked");
+// 				$("[name='checkNumber']").prop("checked", val);
+				
+				if($(this).prop("checked")){
+					$("[name='checkNumber']").not(":checked").each(function() {
+						$(this).prop("checked", true);
+					});
+					
+				}else{
+					$("[name='checkNumber']").each(function() {
+						$(this).prop("checked", false);
+					});
+				}
+			});
+			
+			// 전체 선택 해체
+			$("[name='checkNumber']").click(function() {
+				
+				var flag = true;
+				
+				$("[name='checkNumber']").each(function() {
+					if(!$(this).prop("checked")){
+						flag = false;
+					}
+				});
+				
+				if(flag){
+					$("#checkAll").prop("checked", true);
+				}else{
+					$("#checkAll").prop("checked", false);
+				}
+				
+				// 다른 방법 (더 간단)
+				var allCnt = $("[name='checkNumber']").length;
+				var checkedCnt = $("[name='checkNumber']:checked").length;
+				
+				if(allCnt != checkedCnt){
+					$("#checkAll").prop("checked", true);
+				} else {
+					$("#checkAll").prop("checked", false);
+				}
+				
+			});
+			
+		});
+	
+	</script>
+</head>
+<body>
+	<form>
+		<label>체크박스</label> : <input type="checkbox" id="tmp" checked="checked"><label for="tmp">선택</label>
+		<br><br>
+		<label>성별(라디오)</label> : 
+		<input type="radio" name="gender" id="genderM" value="M"> <label for="genderM">남자</label>
+		<input type="radio" name="gender" id="genderF" value="F" checked="checked"> <label for="genderF">여자</label>
+		<br><br>
+		<label>리스트박스</label> : 
+		<select id="number">
+			<option>==선택==</option>
+			<option selected="selected">하나</option>
+			<option>둘</option>
+			<option>셋</option>
+		</select>
+		<br><br>
+		<label>(readonly)</label> : 
+		<input type="text" readonly="readonly" id="input1">
+		<br><br>
+		<label>(disabled)</label> : 
+		<input type="text" disabled="disabled" id="input2">
+		<br><br> 
+		<button type="button" disabled="disabled" id="btnSubmit">실행</button>		
+		<button type="button">attr 확인</button>		
+		<button type="button">prop 확인</button>		
+		<br><br>  
+		<hr>
+		<br> 
+		<label>체크박스(전체선택/해제)</label> :
+		<br> 
+		<input type="checkbox" id="checkAll"><label for="checkAll">전체선택</label>
+		<br>
+		<input type="checkbox" name="checkNumber" id="num1"><label for="num1"> 1 </label>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="checkbox" name="checkNumber" id="num2"><label for="num2"> 2 </label>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="checkbox" name="checkNumber" id="num3"><label for="num3"> 3 </label>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="checkbox" name="checkNumber" id="num4"><label for="num4"> 4 </label>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="checkbox" name="checkNumber" id="num5"><label for="num5"> 5 </label>
+						
+	</form>
+</body>
+</html>

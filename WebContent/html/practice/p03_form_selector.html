@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>폼 선택자 연습</title>
+	<script type="text/javascript" src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(":input").css("border", "solid 3px MediumAquaMarine").css("background", "pink");
+			$(":button").css("background", "skyblue");
+			$(":input[type='button']").css("background", "black").css("color", "white");
+			$(":submit").css("background", "MediumAquaMarine");
+			$(":reset").css("background", "lightyellow");
+			$(":text, :password").css("border-color", "navy");
+			$(":file, :image").css("border-color", "red");
+			
+		});
+	</script>	
+</head>
+<body>
+	<form action="">
+		Text: 
+		<input type="text"><br>
+		password:
+		<input type="password"><br>
+		radio:
+		<input type="radio" name="rd" id="rdA"> A
+		<input type="radio" name="rd" id="rdB"> B <br>
+		checkbox:
+		<input type="checkbox" name="cb" id="cb1"> 1
+		<input type="checkbox" name="cb" id="cb2"> 2 <br>
+		textarea:<br>
+		<textarea rows="20" cols="25"></textarea> <br>
+		image:
+		<input type="image" src="../../images/bear.jpg"> <br>
+		file:
+		<input type="file"> <br>
+		button:
+		<button type="button">Normal</button>
+		<button type="submit">submit</button>
+		<button type="reset">reset</button> <br>
+		<input type="button" value="Normal">
+		<input type="submit" value="submit">
+		<input type="reset" value="reset">
+	</form>
+</body>
+</html>

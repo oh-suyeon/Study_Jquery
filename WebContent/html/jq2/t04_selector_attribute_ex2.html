@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>선택자 예제5</title>
+	<script src="../../js/lib/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("img[src$='jpg']").css("width", "50px").css("height", "50px")
+			$("img[src$='png']").css("width", "100px").css("height", "100px")
+		})
+	</script>
+
+</head>
+<body>
+	<a href="https://www.ddit.or.kr/">(재)대덕 인재 개발원</a>
+	<br><br>
+	<a href="mailto:power2c@ddit.or.kr">빠워에게 메일보내</a>
+	<br><br>
+	
+	<div>
+		Some images:
+	</div>
+	
+	<div>
+		<img id="img1" alt="사진1" src="../../images/cloud.jpg">
+		<img id="little" src="../../images/beach.jpg">
+		<img id="littel-bear" alt="사진3" src="../../images/coffee.jpg">
+		<img title="nameTest" src="../../images/lion.jpg">
+		<img title="named Test" alt="사진5" src="../../images/flower.jpg">
+		<img src="../../images/food.jpg">
+		<img src="../../images/tiger.png">
+	</div>
+	
+	<div id="someDiv">
+		이곳은 ID 속성이 somDiv인 &#60;div&#62; 태그 입니다.
+	</div>
+	
+	Text: <input type="text">
+	<br><br>
+	<button type="submit">Submit</button>
+	<button type="button">클릭~~</button>
+	
+	
+</body>
+</html>
